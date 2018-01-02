@@ -5,6 +5,11 @@
  */
 package Presentacion;
 
+import Datos.vhabitacion;
+import Logica.fhabitacion;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author santoshm
@@ -16,6 +21,66 @@ public class frmhabitacion extends javax.swing.JFrame {
 	 */
 	public frmhabitacion() {
 		initComponents();
+	}
+	
+	private String accion = "guardar";
+	
+	void ocultar_columnas(){ // ocultar la columna idhabitacion
+		tblListHab.getColumnModel().getColumn(0).setMaxWidth(0);
+		tblListHab.getColumnModel().getColumn(0).setMinWidth(0);
+		tblListHab.getColumnModel().getColumn(0).setPreferredWidth(0);
+	}
+	
+	void inhabilitar(){
+		txtIdHabitacion.setVisible(false);
+		cboPiso.setEnabled(false);
+		txtNumeroHab.setEnabled(false);
+		txtDescripcion.setEnabled(false);
+		txtCaracteristicas.setEnabled(false);
+		txtPrecioDiario.setEnabled(false);
+		cboEstadoHab.setEnabled(false);
+		cboTipoHab.setEnabled(false);
+		
+		btnGuardar.setEnabled(false);
+		btnCancelar.setEnabled(false);
+		btnEliminar.setEnabled(false);
+		txtIdHabitacion.setText("");
+		txtPrecioDiario.setText("");
+		txtCaracteristicas.setText("");
+		txtDescripcion.setText("");
+	}
+	
+	void habilitar(){
+		txtIdHabitacion.setVisible(false);
+		cboPiso.setEnabled(true);
+		txtNumeroHab.setEnabled(true);
+		txtDescripcion.setEnabled(true);
+		txtCaracteristicas.setEnabled(true);
+		txtPrecioDiario.setEnabled(true);
+		cboEstadoHab.setEnabled(true);
+		cboTipoHab.setEnabled(true);
+		
+		btnGuardar.setEnabled(true);
+		btnCancelar.setEnabled(true);
+		btnEliminar.setEnabled(true);
+		txtIdHabitacion.setText("");
+		txtPrecioDiario.setText("");
+		txtCaracteristicas.setText("");
+		txtDescripcion.setText("");
+	}
+	
+	void mostrar(String buscar){
+		try {
+			DefaultTableModel modelo;
+			fhabitacion fhab = new fhabitacion();
+			modelo = fhab.mostrar(buscar);
+			
+			tblListHab.setModel(modelo);
+			ocultar_columnas();
+			lblTotalRegistros.setText("Total registros " + Integer.toString(fhab.totalregistros));
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(rootPane, e);
+		}
 	}
 
 	/**
@@ -121,6 +186,11 @@ public class frmhabitacion extends javax.swing.JFrame {
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/guardar.png"))); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setBackground(new java.awt.Color(51, 51, 51));
         btnNuevo.setForeground(new java.awt.Color(255, 255, 255));
@@ -334,7 +404,66 @@ public class frmhabitacion extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+		habilitar();
+		btnGuardar.setText("Guardar");
+		accion = "guardar";
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+		if (txtNumeroHab.getText().length() == 0) {
+			JOptionPane.showConfirmDialog(rootPane, "Debes ingresar un múmero de habitación");
+			txtNumeroHab.requestFocus();
+			return;
+		}
+		if (txtDescripcion.getText().length() == 0) {
+			JOptionPane.showConfirmDialog(rootPane, "Debes ingresar una descripción");
+			txtDescripcion.requestFocus();
+			return;
+		}
+		if (txtPrecioDiario.getText().length() == 0) {
+			JOptionPane.showConfirmDialog(rootPane, "Debes ingresar un precio diario de habitación");
+			txtPrecioDiario.requestFocus();
+			return;
+		}
+		if (txtCaracteristicas.getText().length() == 0) {
+			JOptionPane.showConfirmDialog(rootPane, "Debes ingresar una caractetisticao de habitación");
+			txtCaracteristicas.requestFocus();
+			return;
+		}
+		
+		vhabitacion dts = new vhabitacion();
+		fhabitacion func = new fhabitacion();
+		
+		dts.setNumero(txtNumeroHab.getText());
+		
+		int seleccionado = cboPiso.getSelectedIndex();
+		dts.setPiso((String) cboPiso.getItemAt(seleccionado));
+		
+		dts.setDescripcion(txtDescripcion.getText());
+		dts.setCaracteristicas(txtCaracteristicas.getText());
+		
+		dts.setPrecio_diario(Double.parseDouble(txtPrecioDiario.getText()));
+		
+		seleccionado = cboEstadoHab.getSelectedIndex();
+		dts.setEstado((String) cboEstadoHab.getItemAt(seleccionado));
+		
+		seleccionado = cboTipoHab.getSelectedIndex();
+		dts.setTipo_habitacion((String) cboTipoHab.getItemAt(seleccionado));
+		
+		if (accion.equals("guardar")) {
+			if (func.insertar(dts)) {
+				JOptionPane.showMessageDialog(rootPane, "La habitación fue registrada correctamente");
+				mostrar("");
+			}
+		}else if (accion.equals("editar")) {
+			dts.setIdhabitacion(Integer.parseInt(txtIdHabitacion.getText()));
+			if (func.editar(dts)) {
+				JOptionPane.showMessageDialog(rootPane, "La habitación fue editada");
+				mostrar("");
+			}
+		}
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 	/**
 	 * @param args the command line arguments
