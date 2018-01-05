@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class conexion {
 	public String db="bdreserva"; 
-	public String url="jdbc:mysqlo://localhost/" + db;
+	public String url="jdbc:mysql://localhost/" + db;
 	public String user="root";
 	public String pass="";
 

@@ -21,6 +21,8 @@ public class frmhabitacion extends javax.swing.JFrame {
 	 */
 	public frmhabitacion() {
 		initComponents();
+		mostrar("");//con parametro en blanco para que muestre todos los registros
+		inhabilitar();
 	}
 	
 	private String accion = "guardar";
@@ -159,6 +161,12 @@ public class frmhabitacion extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Tipo Habitación:");
 
+        txtNumeroHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroHabActionPerformed(evt);
+            }
+        });
+
         cboTipoHab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Matrimonial", "Familiar", "Presidencial", " " }));
 
         txtCaracteristicas.setColumns(20);
@@ -169,9 +177,25 @@ public class frmhabitacion extends javax.swing.JFrame {
         txtDescripcion.setRows(5);
         jScrollPane2.setViewportView(txtDescripcion);
 
+        txtPrecioDiario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioDiarioActionPerformed(evt);
+            }
+        });
+
         cboPiso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", " " }));
+        cboPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboPisoActionPerformed(evt);
+            }
+        });
 
         cboEstadoHab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible ", "Ocupado", "Mantenimiento", " " }));
+        cboEstadoHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboEstadoHabActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -307,6 +331,11 @@ public class frmhabitacion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblListHab.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListHabMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblListHab);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -317,16 +346,31 @@ public class frmhabitacion extends javax.swing.JFrame {
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/buscar.png"))); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(51, 51, 51));
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/eliminar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setBackground(new java.awt.Color(51, 51, 51));
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/salir.gif"))); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         lblTotalRegistros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTotalRegistros.setForeground(new java.awt.Color(255, 255, 255));
@@ -455,15 +499,84 @@ public class frmhabitacion extends javax.swing.JFrame {
 			if (func.insertar(dts)) {
 				JOptionPane.showMessageDialog(rootPane, "La habitación fue registrada correctamente");
 				mostrar("");
+				inhabilitar();
 			}
 		}else if (accion.equals("editar")) {
 			dts.setIdhabitacion(Integer.parseInt(txtIdHabitacion.getText()));
 			if (func.editar(dts)) {
 				JOptionPane.showMessageDialog(rootPane, "La habitación fue editada");
 				mostrar("");
+				inhabilitar();
 			}
 		}
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+		if (!txtIdHabitacion.getText().equals("")) {//es diferente de vacio
+			int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Estás seguro de eliminar la habitación?", "Confirmar", 2);
+			if (confirmacion == 0) {
+				fhabitacion func = new fhabitacion();
+				vhabitacion dts = new vhabitacion();
+				
+				dts.setIdhabitacion(Integer.parseInt(txtIdHabitacion.getText()));
+				func.eliminar(dts);
+				mostrar("");
+				inhabilitar();
+			}
+		}
+		
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+		mostrar(txtBuscar.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtNumeroHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroHabActionPerformed
+        // TODO add your handling code here:
+		txtNumeroHab.transferFocus(); //cada vex que presiono enter en la caja de texto paso a la siguiente caja de texto
+    }//GEN-LAST:event_txtNumeroHabActionPerformed
+
+    private void cboPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPisoActionPerformed
+        // TODO add your handling code here:
+		cboPiso.transferFocus();
+    }//GEN-LAST:event_cboPisoActionPerformed
+
+    private void txtPrecioDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioDiarioActionPerformed
+        // TODO add your handling code here:
+		txtPrecioDiario.transferFocus();
+    }//GEN-LAST:event_txtPrecioDiarioActionPerformed
+
+    private void cboEstadoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboEstadoHabActionPerformed
+        // TODO add your handling code here:
+		cboEstadoHab.transferFocus();
+    }//GEN-LAST:event_cboEstadoHabActionPerformed
+
+    private void tblListHabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListHabMouseClicked
+        // TODO add your handling code here:
+		btnGuardar.setText("Editar");
+		habilitar();
+		btnEliminar.setEnabled(true);
+		accion = "editar";
+		
+		int fila = tblListHab.rowAtPoint(evt.getPoint());
+		
+		txtIdHabitacion.setText(tblListHab.getValueAt(fila, 0).toString());
+		txtNumeroHab.setText(tblListHab.getValueAt(fila, 1).toString());
+		cboPiso.setSelectedItem(tblListHab.getValueAt(fila, 2).toString());
+		txtDescripcion.setText(tblListHab.getValueAt(fila, 3).toString());
+		txtCaracteristicas.setText(tblListHab.getValueAt(fila, 4).toString());
+		txtPrecioDiario.setText(tblListHab.getValueAt(fila, 5).toString());
+		cboEstadoHab.setSelectedItem(tblListHab.getValueAt(fila, 6).toString());
+		cboTipoHab.setSelectedItem(tblListHab.getValueAt(fila, 7).toString());
+		
+    }//GEN-LAST:event_tblListHabMouseClicked
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+		this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
 	/**
 	 * @param args the command line arguments
