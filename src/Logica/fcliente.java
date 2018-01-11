@@ -34,7 +34,7 @@ public class fcliente {
 		modelo = new DefaultTableModel(null, titulos);
 		sSQL = "select p.idpersona, p.nombre, p.apaterno, p.amaterno, p.tipo_documento, p.num_documento,"
 				+ "p.direccion, p.telefono, p.email, c.codigo_cliente from persona p inner join cliente c "
-				+ "on p.idpersona = c.idpersona where numero_documento like '%"
+				+ "on p.idpersona = c.idpersona where num_documento like '%"
 				+ buscar + "%' order by idpersona desc";
 		try {
 			Statement st = cn.createStatement();
@@ -46,7 +46,7 @@ public class fcliente {
 				registro[3] = rs.getString("amaterno");
 				registro[4] = rs.getString("tipo_documento");
 				registro[5] = rs.getString("num_documento");
-				registro[6] = rs.getString("director");
+				registro[6] = rs.getString("direccion");
 				registro[7] = rs.getString("telefono");
 				registro[8] = rs.getString("email");
 				registro[9] = rs.getString("codigo_cliente");
