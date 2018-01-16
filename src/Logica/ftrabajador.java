@@ -34,7 +34,7 @@ public class ftrabajador {
 		totalregistros = 0;
 		modelo = new DefaultTableModel(null, titulos);
 		sSQL = "select p.idpersona, p.nombre, p.apaterno, p.amaterno, p.tipo_documento, p.num_documento,"
-				+ "p.direccion, p.telefono, p.email, t.sueldo, t.acceso, t.login, t.password, t.estado from persona p inner join trsbajador t "
+				+ "p.direccion, p.telefono, p.email, t.sueldo, t.acceso, t.login, t.password, t.estado from persona p inner join trabajador t "
 				+ "on p.idpersona = t.idpersona where num_documento like '%"
 				+ buscar + "%' order by idpersona desc";
 		try {
