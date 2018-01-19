@@ -14,12 +14,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author santoshm
  */
-public class frmhabitacion extends javax.swing.JFrame {
+public class Frmhabitacion extends javax.swing.JInternalFrame {
 
 	/**
 	 * Creates new form frmhabitacion
 	 */
-	public frmhabitacion() {
+	public Frmhabitacion() {
 		initComponents();
 		mostrar("");//con parametro en blanco para que muestre todos los registros
 		inhabilitar();
@@ -102,14 +102,14 @@ public class frmhabitacion extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtNumeroHab = new javax.swing.JTextField();
-        cboTipoHab = new javax.swing.JComboBox<>();
+        cboTipoHab = new javax.swing.JComboBox<String>();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtCaracteristicas = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         txtPrecioDiario = new javax.swing.JTextField();
-        cboPiso = new javax.swing.JComboBox<>();
-        cboEstadoHab = new javax.swing.JComboBox<>();
+        cboPiso = new javax.swing.JComboBox<String>();
+        cboEstadoHab = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
         txtIdHabitacion = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
@@ -125,7 +125,10 @@ public class frmhabitacion extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         lblTotalRegistros = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Habitación");
@@ -167,7 +170,7 @@ public class frmhabitacion extends javax.swing.JFrame {
             }
         });
 
-        cboTipoHab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Matrimonial", "Familiar", "Presidencial", " " }));
+        cboTipoHab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Individual", "Matrimonial", "Familiar", "Presidencial", " " }));
 
         txtCaracteristicas.setColumns(20);
         txtCaracteristicas.setRows(5);
@@ -183,14 +186,14 @@ public class frmhabitacion extends javax.swing.JFrame {
             }
         });
 
-        cboPiso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", " " }));
+        cboPiso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", " " }));
         cboPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboPisoActionPerformed(evt);
             }
         });
 
-        cboEstadoHab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible ", "Ocupado", "Mantenimiento", " " }));
+        cboEstadoHab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Disponible ", "Ocupado", "Mantenimiento", " " }));
         cboEstadoHab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboEstadoHabActionPerformed(evt);
@@ -595,20 +598,20 @@ public class frmhabitacion extends javax.swing.JFrame {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(frmhabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(Frmhabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(frmhabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(Frmhabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(frmhabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(Frmhabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(frmhabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(Frmhabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		//</editor-fold>
 
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new frmhabitacion().setVisible(true);
+				new Frmhabitacion().setVisible(true);
 			}
 		});
 	}
