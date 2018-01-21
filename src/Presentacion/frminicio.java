@@ -39,7 +39,7 @@ public class frminicio extends javax.swing.JFrame {
         cutMenuItem = new javax.swing.JMenuItem();
         copyMenuItem = new javax.swing.JMenuItem();
         mnuReservas = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
+        menuReservas = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         mnuConsultas = new javax.swing.JMenu();
@@ -117,16 +117,16 @@ public class frminicio extends javax.swing.JFrame {
         mnuReservas.setMnemonic('h');
         mnuReservas.setText("Reservas");
 
-        contentMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        contentMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/reservas-consumos.png"))); // NOI18N
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Reservas y Consumos");
-        contentMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        menuReservas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        menuReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/reservas-consumos.png"))); // NOI18N
+        menuReservas.setMnemonic('c');
+        menuReservas.setText("Reservas y Consumos");
+        menuReservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contentMenuItemActionPerformed(evt);
+                menuReservasActionPerformed(evt);
             }
         });
-        mnuReservas.add(contentMenuItem);
+        mnuReservas.add(menuReservas);
 
         aboutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         aboutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Files/clientes.png"))); // NOI18N
@@ -232,9 +232,13 @@ public class frminicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void contentMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contentMenuItemActionPerformed
+    private void menuReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReservasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_contentMenuItemActionPerformed
+		frmreserva form = new frmreserva();
+		escritorio.add(form);
+		form.toFront();
+		form.setVisible(true);
+    }//GEN-LAST:event_menuReservasActionPerformed
 
     private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed
         // TODO add your handling code here:
@@ -294,7 +298,6 @@ public class frminicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JDesktopPane escritorio;
@@ -308,6 +311,7 @@ public class frminicio extends javax.swing.JFrame {
     public static javax.swing.JLabel lblidpersona;
     public static javax.swing.JLabel lblnombre;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem menuReservas;
     public static javax.swing.JMenu mnuArchivo;
     private javax.swing.JMenu mnuAyuda;
     public static javax.swing.JMenu mnuConfiguracion;
