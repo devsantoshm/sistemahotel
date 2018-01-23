@@ -238,6 +238,9 @@ public class frminicio extends javax.swing.JFrame {
 		escritorio.add(form);
 		form.toFront();
 		form.setVisible(true);
+		frmreserva.txtidtrabajador.setText(lblidpersona.getText());
+		frmreserva.txttrabajador.setText(lblnombre.getText() + " " + lblapaterno.getText());
+		frmreserva.idusuario = Integer.parseInt(lblidpersona.getText());
     }//GEN-LAST:event_menuReservasActionPerformed
 
     private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed

@@ -313,8 +313,18 @@ public class frmreserva extends javax.swing.JInternalFrame {
         });
 
         btnbuscacliente.setText("...");
+        btnbuscacliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscaclienteActionPerformed(evt);
+            }
+        });
 
         btnbuscahabitacion1.setText("...");
+        btnbuscahabitacion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscahabitacion1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -739,6 +749,20 @@ public class frmreserva extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboestadoActionPerformed
 
+    private void btnbuscahabitacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscahabitacion1ActionPerformed
+        // TODO add your handling code here:
+		frmvistahabitacion form = new frmvistahabitacion();
+		form.toFront(); //Para que aparezca enfrente de cualquier formulario
+		form.setVisible(true);
+    }//GEN-LAST:event_btnbuscahabitacion1ActionPerformed
+
+    private void btnbuscaclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscaclienteActionPerformed
+        // TODO add your handling code here:
+		frmvistacliente form = new frmvistacliente();
+		form.toFront();
+		form.setVisible(true);
+    }//GEN-LAST:event_btnbuscaclienteActionPerformed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -809,13 +833,13 @@ public class frmreserva extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTotalRegistros;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtcliente;
+    public static javax.swing.JTextField txtcliente;
     private javax.swing.JTextField txtcosto;
-    private javax.swing.JTextField txtidcliente;
-    private javax.swing.JTextField txtidhabitacion;
+    public static javax.swing.JTextField txtidcliente;
+    public static javax.swing.JTextField txtidhabitacion;
     private javax.swing.JTextField txtidreserva;
-    private javax.swing.JTextField txtidtrabajador;
-    private javax.swing.JTextField txtnumerohab;
-    private javax.swing.JTextField txttrabajador;
+    public static javax.swing.JTextField txtidtrabajador;
+    public static javax.swing.JTextField txtnumerohab;
+    public static javax.swing.JTextField txttrabajador;
     // End of variables declaration//GEN-END:variables
 }

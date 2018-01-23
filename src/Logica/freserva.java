@@ -69,7 +69,7 @@ public class freserva {
 	}
 	
 	public boolean insertar(vreserva dts){
-		sSQL = "insert into reserva (idhabitacion, idcliente, idtrabajador, tipo_reserva, fecha_reserva, fecha_ingreso,"+
+		sSQL = "insert into reserva (idhabitacion, idcliente, idtrabajador, tipo_reserva, fecha_reserva, fecha_ingresa,"+
 				"fecha_salida, costo_alojamiento, estado) values(?,?,?,?,?,?,?,?,?)"; 
 
 		try {
