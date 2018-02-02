@@ -32,8 +32,8 @@ public class fconsumo {
 		totalregistros = 0;
 		totalconsumo = 0.0;
 		modelo = new DefaultTableModel(null, titulos);
-		sSQL = "select c.idconsumo, c.idreserva, c,idproducto, p.nombre, c.cantidad, c.precio_venta, c.estado " 
-				+ "from consumo c left join producto p on c.idproducto = p.idproducto "
+		sSQL = "select c.idconsumo, c.idreserva, c.idproducto, p.nombre, c.cantidad, c.precio_venta, c.estado " 
+				+ "from consumo c inner join producto p on c.idproducto = p.idproducto "
 				+ "where c.idreserva ="+ buscar + " order by c.idconsumo desc";
 		try {
 			Statement st = cn.createStatement();

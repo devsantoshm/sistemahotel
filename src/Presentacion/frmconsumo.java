@@ -237,6 +237,11 @@ public class frmconsumo extends javax.swing.JInternalFrame {
         });
 
         btnbuscarproducto.setText("...");
+        btnbuscarproducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarproductoActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -576,6 +581,13 @@ public class frmconsumo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtcantidadActionPerformed
 
+    private void btnbuscarproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarproductoActionPerformed
+        // TODO add your handling code here:
+		frmvistaproducto form = new frmvistaproducto();
+		form.toFront();
+		form.setVisible(true);
+    }//GEN-LAST:event_btnbuscarproductoActionPerformed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -636,11 +648,11 @@ public class frmconsumo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblconsumo;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtIdConsumo;
-    private javax.swing.JTextField txtPrecioVenta;
+    public static javax.swing.JTextField txtPrecioVenta;
     private javax.swing.JTextField txtcantidad;
     private javax.swing.JTextField txtcliente;
-    private javax.swing.JTextField txtidproducto;
+    public static javax.swing.JTextField txtidproducto;
     private javax.swing.JTextField txtidreserva;
-    private javax.swing.JTextField txtproducto;
+    public static javax.swing.JTextField txtproducto;
     // End of variables declaration//GEN-END:variables
 }

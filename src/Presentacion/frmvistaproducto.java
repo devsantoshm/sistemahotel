@@ -79,6 +79,9 @@ public class frmvistaproducto extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblListadoMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblListadoMousePressed(evt);
+            }
         });
         jScrollPane3.setViewportView(tblListado);
 
@@ -186,6 +189,23 @@ public class frmvistaproducto extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void tblListadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMousePressed
+        // TODO add your handling code here:
+		if (evt.getClickCount() == 2) {
+			int fila = tblListado.getSelectedRow();
+			String cod, nomProd, precioProd;
+			cod = tblListado.getValueAt(fila, 0).toString();
+			nomProd = tblListado.getValueAt(fila, 1).toString();
+			precioProd = tblListado.getValueAt(fila, 4).toString();
+			
+			frmconsumo.txtidproducto.setText(cod);
+			frmconsumo.txtproducto.setText(nomProd);
+			frmconsumo.txtPrecioVenta.setText(precioProd);
+			
+			this.setVisible(false); //para que la ventana se oculte
+		}
+    }//GEN-LAST:event_tblListadoMousePressed
 
 	/**
 	 * @param args the command line arguments
