@@ -97,6 +97,27 @@ public class freserva {
 		}
 	} 
 	
+	public boolean pagar (vreserva dts){
+		sSQL = "update reserva set estado='Pagada'" +
+				" where idreserva=?";
+		try {
+			PreparedStatement pst = cn.prepareCall(sSQL);
+			
+			pst.setInt(1, dts.getIdreserva());
+			
+			int n = pst.executeUpdate();
+			
+			if (n != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e);
+			return false;
+		}
+	}
+	
 	public boolean editar (vreserva dts){
 		sSQL = "update reserva set idhabitacion=?, idcliente=?, idtrabajador=?, tipo_reserva=?," +
 				"fecha_reserva=?, fecha_ingresa=?, fecha_salida=?, costo_alojamiento=?, estado=?" +
