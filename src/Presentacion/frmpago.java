@@ -14,6 +14,7 @@ import Logica.fpago;
 import Logica.fpago;
 import Logica.freserva;
 import java.sql.Date;
+import java.time.Instant;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -485,7 +486,7 @@ public class frmpago extends javax.swing.JInternalFrame {
                         .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 30, Short.MAX_VALUE))
+                        .addGap(0, 48, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -541,11 +542,11 @@ public class frmpago extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lbltotalcomsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(lbltotalcomsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotalRegistrosConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -585,7 +586,7 @@ public class frmpago extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -680,14 +681,14 @@ public class frmpago extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
 		if (!txtidpago.getText().equals("")) {//es diferente de vacio
-			int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Estás seguro de eliminar el producto?", "Confirmar", 2);
+			int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Estás seguro de eliminar el pago seleccionado?", "Confirmar", 2);
 			if (confirmacion == 0) {
 				fpago func = new fpago();
 				vpago dts = new vpago();
 				
-				dts.setIdproducto(Integer.parseInt(txtidpago.getText()));
+				dts.setIdpago(Integer.parseInt(txtidpago.getText()));
 				func.eliminar(dts);
-				mostrar("");
+				mostrar(idreserva);
 				inhabilitar();
 			}
 		}
@@ -719,10 +720,13 @@ public class frmpago extends javax.swing.JInternalFrame {
 		int fila = tblListado.rowAtPoint(evt.getPoint());
 		
 		txtidpago.setText(tblListado.getValueAt(fila, 0).toString());
-		txtidreserva.setText(tblListado.getValueAt(fila, 1).toString());
-		txtDescripcion.setText(tblListado.getValueAt(fila, 2).toString());
-		cbotipo_comprobante.setSelectedItem(tblListado.getValueAt(fila, 3).toString());
-		txtnum_comprobante.setText(tblListado.getValueAt(fila, 4).toString());	
+		//txtidreserva.setText(tblListado.getValueAt(fila, 1).toString()); será pasado por frmreserva
+		cbotipo_comprobante.setSelectedItem(tblListado.getValueAt(fila, 2).toString());
+		txtnum_comprobante.setText(tblListado.getValueAt(fila, 3).toString());
+		txtigv.setText(tblListado.getValueAt(fila, 4).toString());
+		txttotal_pago.setText(tblListado.getValueAt(fila, 5).toString());
+		dcfecha_emision.setDate(Date.valueOf(tblListado.getValueAt(fila, 6).toString()));
+		dcfecha_pago.setDate(Date.valueOf(tblListado.getValueAt(fila, 7).toString()));
     }//GEN-LAST:event_tblListadoMouseClicked
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
