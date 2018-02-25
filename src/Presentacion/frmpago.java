@@ -8,16 +8,26 @@ package Presentacion;
 import Datos.vhabitacion;
 import Datos.vpago;
 import Datos.vreserva;
+import Logica.conexion;
 import Logica.fconsumo;
 import Logica.fhabitacion;
 import Logica.fpago;
 import Logica.fpago;
 import Logica.freserva;
+import java.io.File;
+import java.sql.Connection;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -183,6 +193,7 @@ public class frmpago extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         lblTotalRegistros = new javax.swing.JLabel();
+        btnimprimirComprob = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblListadoconsumo = new javax.swing.JTable();
@@ -473,6 +484,15 @@ public class frmpago extends javax.swing.JInternalFrame {
         lblTotalRegistros.setForeground(new java.awt.Color(255, 255, 255));
         lblTotalRegistros.setText("Registros:");
 
+        btnimprimirComprob.setBackground(new java.awt.Color(51, 51, 51));
+        btnimprimirComprob.setForeground(new java.awt.Color(255, 255, 255));
+        btnimprimirComprob.setText("Imprimir");
+        btnimprimirComprob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnimprimirComprobActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -481,15 +501,17 @@ public class frmpago extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(309, 309, 309)
-                        .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 48, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnimprimirComprob, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -498,7 +520,8 @@ public class frmpago extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
-                    .addComponent(btnSalir))
+                    .addComponent(btnSalir)
+                    .addComponent(btnimprimirComprob))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -586,7 +609,7 @@ public class frmpago extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -759,6 +782,31 @@ public class frmpago extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblListadoconsumoMouseClicked
 
+	private Connection connection = new conexion().conectar();
+	
+    private void btnimprimirComprobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimprimirComprobActionPerformed
+        // TODO add your handling code here:
+		if (!txtidpago.getText().equals("")) {
+			Map p = new HashMap();
+			p.put("idpago", txtidpago.getText());
+			JasperReport report;
+			JasperPrint print;
+
+			try {
+				report = JasperCompileManager.compileReport(new File("").getAbsolutePath()+
+						"/src/Reportes/rptComprobante.jrxml");
+				print = JasperFillManager.fillReport(report, p, connection);
+
+				JasperViewer view = new JasperViewer(print, false);
+				view.setTitle("Comprobante");
+				view.setVisible(true);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+    }//GEN-LAST:event_btnimprimirComprobActionPerformed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -803,6 +851,7 @@ public class frmpago extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnimprimirComprob;
     private javax.swing.JComboBox<String> cbotipo_comprobante;
     private com.toedter.calendar.JDateChooser dcfecha_emision;
     private com.toedter.calendar.JDateChooser dcfecha_pago;
